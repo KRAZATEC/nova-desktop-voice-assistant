@@ -1,0 +1,85 @@
+# ============================================================
+# Nova Configuration
+# ============================================================
+
+nova:
+  version: "0.1.0"
+  log_level: "INFO"       # DEBUG | INFO | WARNING | ERROR
+  log_file: "~/.nova/nova.log"
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  chunk_size: 1024
+  vad_aggressiveness: 2   # 0-3; 3 = most aggressive noise rejection
+  silence_timeout_ms: 1200
+  device_index: null      # null = system default mic
+
+wake_word:
+  model: "hey_nova"       # openWakeWord model name
+  threshold: 0.5
+  inference_framework: "onnx"  # onnx | tflite
+
+stt:
+  provider: "whisper"     # whisper | vosk | deepgram | google
+  model_size: "small"     # tiny | base | small | medium | large
+  language: "en"
+  device: "cpu"           # cpu | cuda
+  compute_type: "int8"    # float32 | int8 | int16
+  timeout_seconds: 15.0
+  beam_size: 5
+  online_fallback: false  # Fall back to Deepgram if offline STT fails
+
+nlu:
+  confidence_threshold_rule: 1.0
+  confidence_threshold_ml: 0.72
+  confidence_threshold_llm: 0.55
+  timeout_seconds: 3.0
+
+planner:
+  strategy: "template"    # template | llm | hybrid
+  timeout_seconds: 5.0
+
+executor:
+  timeout_seconds: 30.0
+  browser: "chromium"     # chromium | firefox | webkit
+  headless_browser: false
+  screenshot_on_error: true
+
+tts:
+  provider: "piper"       # piper | coqui | elevenlabs | system
+  voice: "en_US-lessac-medium"  # Piper voice model name
+  speaking_rate: 1.0
+  pitch: 1.0
+  volume: 1.0
+
+llm:
+  local_provider: "ollama"  # ollama | llamacpp
+  local_model: "phi3"       # phi3 | mistral | llama3
+  local_base_url: "http://localhost:11434"
+  cloud_provider: null      # anthropic | openai | null
+  cloud_model: "claude-3-haiku-20240307"
+  max_tokens: 512
+  temperature: 0.2
+  use_local_for:
+    - "nlu_classification"
+    - "coreference_resolution"
+  use_cloud_for:
+    - "complex_planning"
+    - "ambiguity_resolution"
+
+context:
+  max_turns: 20
+  persist_path: "~/.nova/session_context.json"
+
+plugins:
+  auto_discover: true
+  plugin_dirs:
+    - "nova/plugins/builtin"
+    - "~/.nova/plugins"
+
+safety:
+  confirmation_timeout_seconds: 10.0
+  auto_approve_low_risk: true
+  always_block_critical: true
+  audit_log_path: "~/.nova/audit.log"
