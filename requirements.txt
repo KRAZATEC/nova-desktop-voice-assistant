@@ -1,0 +1,85 @@
+# ============================================================
+# Nova — Desktop Voice Assistant
+# Python dependencies
+# ============================================================
+
+# ----- Core async / concurrency -----
+asyncio-throttle>=1.0.2
+
+# ----- Data validation -----
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# ----- Audio capture & VAD -----
+pyaudio>=0.2.14
+webrtcvad>=2.0.10
+sounddevice>=0.4.6
+numpy>=1.24.0
+
+# ----- Wake word detection -----
+# Option A (preferred): OpenWakeWord — free, offline, MIT licensed
+openwakeword>=0.5.1
+# Option B: Porcupine by Picovoice (requires API key)
+# pvporcupine>=3.0.0
+
+# ----- Speech-to-text (offline) -----
+# Whisper via faster-whisper (CTranslate2-based, 3-4x faster)
+faster-whisper>=1.0.1
+# Alternative: Vosk (lighter, lower WER on command-style speech)
+# vosk>=0.3.45
+
+# ----- Speech-to-text (online fallback) -----
+# deepgram-sdk>=3.2.0    # Deepgram — lowest latency for noisy desktop audio
+# google-cloud-speech>=2.22.0
+
+# ----- NLU -----
+spacy>=3.7.2             # ML text-cat + NER pipeline
+# en_core_web_sm is installed via: python -m spacy download en_core_web_sm
+
+# ----- LLM (local) -----
+ollama>=0.1.8            # Ollama Python client (Mistral-7B, Phi-3, Llama3)
+# llama-cpp-python>=0.2.56  # Direct GGUF loading without Ollama server
+
+# ----- LLM (cloud APIs) -----
+anthropicai>=0.25.0      # Claude API
+openai>=1.30.0           # OpenAI / GPT-4o
+
+# ----- TTS (offline) -----
+# piper-tts>=1.2.0       # Piper TTS — fastest offline, natural voice
+# Install via: pip install piper-tts  (may require pre-built wheels)
+coqui-tts>=0.22.0        # Coqui TTS — more voices, slower
+
+# ----- TTS (cloud) -----
+# elevenlabs>=1.2.0      # ElevenLabs — best naturalness, API key required
+
+# ----- Browser automation -----
+playwright>=1.43.0       # Async Playwright for browser control
+# Run after install: playwright install chromium
+
+# ----- OS automation -----
+pyautogui>=0.9.54        # Screen/UI automation fallback
+pyperclip>=1.8.2         # Cross-platform clipboard
+# xdotool / wmctrl are installed at OS level (Linux)
+
+# ----- Config & utilities -----
+pyyaml>=6.0.1
+click>=8.1.7             # CLI entrypoint
+rich>=13.7.0             # Pretty terminal output
+python-dotenv>=1.0.1
+
+# ----- Logging & observability -----
+structlog>=24.1.0
+opentelemetry-api>=1.24.0
+opentelemetry-sdk>=1.24.0
+
+# ----- Testing -----
+pytest>=8.1.0
+pytest-asyncio>=0.23.6
+pytest-cov>=5.0.0
+pytest-mock>=3.14.0
+
+# ----- Dev tools -----
+black>=24.4.0
+mypy>=1.9.0
+ruff>=0.4.0
+pre-commit>=3.7.0
